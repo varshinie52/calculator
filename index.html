@@ -1,0 +1,118 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10 Mark Calculator</title>
+    <style>
+      * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+      body {
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background: #f0f2f8;
+        margin: 0;
+      }
+      .card {
+        background: white;
+        padding: 28px;
+        width: 380px;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      }
+      h2 { text-align: center; margin: 0 0 20px; color: #222; }
+      input {
+        width: 100%;
+        padding: 12px 14px;
+        margin: 7px 0;
+        border: 1.5px solid #d1d5db;
+        border-radius: 10px;
+        outline: none;
+        transition: 0.2s;
+      }
+      input:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+      button {
+        width: 100%;
+        padding: 12px;
+        margin-top: 12px;
+        background: #6366f1;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.2s;
+      }
+      button:hover { background: #4f46e5; }
+      #result {
+        margin-top: 18px;
+        padding: 14px;
+        background: #f8f7ff;
+        border-radius: 10px;
+        display: none;
+        line-height: 1.6;
+      }
+      .grade-A { color: #16a34a; font-weight: bold; }
+      .grade-B { color: #2563eb; font-weight: bold; }
+      .grade-C { color: #d97706; font-weight: bold; }
+      .grade-FAIL { color: #dc2626; font-weight: bold; }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>10 Mark Calculator</h2>
+      <input type="number" id="num1" placeholder="Enter first number" />
+      <input type="number" id="num2" placeholder="Enter second number" />
+      <input type="number" id="num3" placeholder="Enter third number" />
+      <input type="number" id="num4" placeholder="Enter fourth number" />
+      <input type="number" id="num5" placeholder="Enter fifth number" />
+      <button onclick="calculate()">Calculate</button>
+      <div id="result"></div>
+    </div>
+
+    <script>
+      function calculate() {
+        const num1 = parseFloat(document.getElementById("num1").value);
+        const num2 = parseFloat(document.getElementById("num2").value);
+        const num3 = parseFloat(document.getElementById("num3").value);
+        const num4 = parseFloat(document.getElementById("num4").value);
+        const num5 = parseFloat(document.getElementById("num5").value);
+
+        if ([num1, num2, num3, num4, num5].some(isNaN)) {
+          alert("Please enter valid numbers in all fields.");
+          return;
+        }
+
+        const total = num1 + num2 + num3 + num4 + num5;
+        const average = total / 5;
+
+        let gradeText = "";
+        let gradeClass = "";
+        if (average >= 90) {
+          gradeText = "Grade A";
+          gradeClass = "grade-A";
+        } else if (average >= 80) {
+          gradeText = "Grade B";
+          gradeClass = "grade-B";
+        } else if (average >= 70) {
+          gradeText = "Grade C";
+          gradeClass = "grade-C";
+        } else {
+          gradeText = "FAIL";
+          gradeClass = "grade-FAIL";
+        }
+
+        const resultDiv = document.getElementById("result");
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `
+          Total: <b>${total}</b><br>
+          Average: <b>${average.toFixed(2)}</b><br>
+          <span class="${gradeClass}">${gradeText}</span>
+        `;
+        
+        console.log(`Total: ${total}, Average: ${average}, ${gradeText}`);
+      }
+    </script>
+  </body>
+</html>
